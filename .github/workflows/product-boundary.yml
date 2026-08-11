@@ -1,0 +1,21 @@
+name: Product boundary
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check BUSL-1.1 license surface
+        run: bash scripts/check-license-surface.sh
+      - name: Check ClaimProofCloud boundary
+        run: bash scripts/check-product-boundary.sh
+      - name: Test boundary guard
+        run: bash scripts/test-product-boundary.sh

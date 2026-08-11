@@ -1,0 +1,21 @@
+{
+  "version": "source-ledger-v1",
+  "sources": [
+    {
+      "id": "source-record-001",
+      "matterID": "matter-001",
+      "title": "Replace with source title",
+      "canonicalURL": "https://example.invalid/public-record",
+      "sourceType": "courtRecord",
+      "jurisdiction": "Replace with jurisdiction",
+      "retrievedAt": "2026-07-15",
+      "authorizationBasis": "publicRecordReusePermitted",
+      "licenseOrTerms": "Replace with documented reuse basis and terms snapshot",
+      "redistributionPermitted": true,
+      "contentSHA256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "deidentificationReview": "notRequired",
+      "containsDirectPersonalIdentifiers": false,
+      "containsRestrictedMaterial": false
+    }
+  ]
+}

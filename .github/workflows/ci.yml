@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    # macos-14's default toolchain is Swift 5.10; the package needs tools 6.0.
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show toolchain
+        run: swift --version
+      - name: Build
+        run: swift build
+      - name: Test
+        run: swift test
+      - name: Run safety benchmark
+        run: swift run claimproof benchmark Fixtures/benchmark-v0.1.json
+      - name: Enforce spec conformance and DProvenanceKit parity
+        run: swift run --package-path ConformanceHarness ConformanceHarness
+      - name: Prevent benchmark-report drift
+        run: bash scripts/check-benchmark-report.sh
+      - name: Enforce BUSL-1.1 license surface
+        run: bash scripts/check-license-surface.sh
+      - name: Enforce product boundary
+        run: bash scripts/check-product-boundary.sh
+      - name: Test product boundary guard
+        run: bash scripts/test-product-boundary.sh
+
+  # Library targets must keep compiling for WebAssembly (wasm32-wasip1), where
+  # CryptoKit and NSRegularExpression do not exist, and the frozen conformance
+  # vectors must PASS when executed inside a wasm module — the code paths that
+  # differ off Apple platforms (swift-crypto hashing, the hand-rolled UTF-16
+  # scanner) are byte-locked by running them, not just compiling them. The
+  # container pins the toolchain to a version that exists in
+  # swiftwasm/swift-sdk-index — setup-swiftwasm resolves the SDK from
+  # `swift --version`, so an unpinned runner toolchain breaks the job whenever
+  # the index lags a Swift release.
+  wasm-build:
+    name: WebAssembly build and conformance (wasm32-wasip1)
+    runs-on: ubuntu-latest
+    container: swift:6.3.2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: swiftwasm/setup-swiftwasm@v2
+        id: swiftwasm
+        with:
+          target: wasm32-unknown-wasip1
+      - name: Show toolchain
+        run: swift --version
+      - name: Build library targets for WebAssembly
+        run: swift build --swift-sdk ${{ steps.swiftwasm.outputs.swift-sdk-id }} --target ClaimProofBridge
+      # Build the C-ABI reactor the Word taskpane loads. This validates the
+      # #if arch(wasm32) exports (cpk_verify/cpk_malloc/cpk_free) actually
+      # compile and link for wasm — the reactor exec-model emits _initialize
+      # instead of _start.
+      - name: Build wasm reactor (ClaimProofWasm)
+        run: >
+          swift build -c release
+          --swift-sdk ${{ steps.swiftwasm.outputs.swift-sdk-id }}
+          --product ClaimProofWasm
+          -Xswiftc -Xclang-linker -Xswiftc -mexec-model=reactor
+      # Presence check for every C-ABI export a host codes against, by
+      # decoding the module's export section (id 7). A raw-binary grep is NOT
+      # sound here: DWARF .debug_str stores every C symbol name NUL-terminated,
+      # so a function whose @_expose was dropped (but whose @_cdecl symbol
+      # remains) still matches a substring search. This catches a dropped or
+      # renamed @_expose; behavioral checks of the exports run in host
+      # integration harnesses (e.g. under node:wasi) outside this repo.
+      - name: Check reactor exports
+        run: |
+          BIN="$(swift build -c release --swift-sdk ${{ steps.swiftwasm.outputs.swift-sdk-id }} --show-bin-path)"
+          swift scripts/check-wasm-exports.swift "$BIN/ClaimProofWasm.wasm" \
+            cpk_abi_version cpk_malloc cpk_free cpk_verify cpk_passage_fingerprint cpk_claim_fingerprint
+      # Execute the spec conformance vectors INSIDE a wasm module (M1 exit
+      # gate). The runner shares its check code with the native harness via
+      # ClaimProofConformance, so any wasm-only behavioral divergence in
+      # identity fingerprints, verdict semantics, or canonical provenance
+      # payloads fails CI. Exit codes propagate through wasmkit; a tampered
+      # vector was verified to fail the run.
+      - name: Build conformance vector runner (wasm32-wasip1)
+        run: >
+          swift build -c release
+          --swift-sdk ${{ steps.swiftwasm.outputs.swift-sdk-id }}
+          --product ConformanceVectors
+      - name: Run conformance vectors under WasmKit
+        run: |
+          # swift.org toolchains ship wasmkit since 6.2; fall back to the
+          # pinned static-musl release binary if this container ever drops it.
+          if ! command -v wasmkit >/dev/null 2>&1; then
+            curl -fsSL https://github.com/swiftwasm/WasmKit/releases/download/0.3.1/wasmkit-x86_64-swift-linux-musl.tar.gz | tar -xz -C "${RUNNER_TEMP:-/tmp}"
+            export PATH="${RUNNER_TEMP:-/tmp}/wasmkit-x86_64-swift-linux-musl:$PATH"
+          fi
+          wasmkit --version
+          BIN="$(swift build -c release --swift-sdk ${{ steps.swiftwasm.outputs.swift-sdk-id }} --show-bin-path)"
+          # wasmkit --dir preopens are identity-mapped (guest path == host
+          # path), so the same absolute path is preopened and passed as argv.
+          wasmkit run --dir "$PWD/ConformanceHarness/vectors" \
+            "$BIN/ConformanceVectors.wasm" "$PWD/ConformanceHarness/vectors"

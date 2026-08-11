@@ -1,0 +1,69 @@
+{
+  "version": "legal-realistic-v1-development",
+  "name": "Realistic legal benchmark collection template",
+  "metadata": {
+    "origin": "publicRecord",
+    "split": "development",
+    "independentlyLabeled": true,
+    "annotatorsPerClaim": 2,
+    "binaryLabelAgreement": 0.8,
+    "annotationPolicyVersion": "legal-annotation/1"
+  },
+  "claimCases": [
+    {
+      "id": "matter-001-claim-001",
+      "matterID": "matter-001",
+      "category": "directSupport",
+      "challengeTags": ["date"],
+      "claimText": "The contract ended on May 4.",
+      "claimType": "factual",
+      "evidence": [
+        {
+          "id": "notice-1",
+          "source": "Termination notice",
+          "sourceType": "evidence",
+          "text": "The contract ended on May 4."
+        }
+      ],
+      "expectedStatus": "directlySupported",
+      "rationale": "The termination notice states the date verbatim.",
+      "goldEvidenceSpans": [
+        {
+          "evidenceID": "notice-1",
+          "exactQuote": "The contract ended on May 4."
+        }
+      ]
+    },
+    {
+      "id": "matter-001-claim-002",
+      "matterID": "matter-001",
+      "category": "contradiction",
+      "challengeTags": ["date"],
+      "claimText": "The contract ended on May 5.",
+      "claimType": "factual",
+      "evidence": [
+        {
+          "id": "notice-1",
+          "source": "Termination notice",
+          "sourceType": "evidence",
+          "text": "The contract ended on May 4."
+        }
+      ],
+      "expectedStatus": "contradicted",
+      "rationale": "The termination notice gives a different date.",
+      "goldEvidenceSpans": [
+        {
+          "evidenceID": "notice-1",
+          "exactQuote": "The contract ended on May 4."
+        }
+      ]
+    }
+  ],
+  "extractionCases": [
+    {
+      "id": "matter-001-draft-001",
+      "document": "The contract ended on May 4.",
+      "expectedClaims": ["The contract ended on May 4."]
+    }
+  ]
+}

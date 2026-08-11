@@ -1,0 +1,10 @@
+.build/
+.swiftpm/
+.DS_Store
+
+# swiftly per-directory toolchain pin (local wasm dev; CI uses its own toolchains)
+.swift-version
+
+# Private source ledgers, reviewer packets, and original submissions.
+.claimproof-annotation/
+BenchmarkWork/

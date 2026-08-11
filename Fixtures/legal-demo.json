@@ -1,0 +1,17 @@
+{
+  "document": "A response must be filed within 14 days after service of the motion. The court granted the request for an extension.",
+  "evidence": [
+    {
+      "id": "rule-5",
+      "source": "Local Rule 5",
+      "sourceType": "courtRule",
+      "text": "A response must be filed within 14 days after service of the motion."
+    },
+    {
+      "id": "order-1",
+      "source": "Scheduling Order",
+      "sourceType": "courtRecord",
+      "text": "The court denied the request for an extension."
+    }
+  ]
+}

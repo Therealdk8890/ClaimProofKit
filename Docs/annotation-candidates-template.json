@@ -1,0 +1,26 @@
+{
+  "version": "legal-human-pilot-v1",
+  "name": "Human-labeled legal evidence pilot",
+  "sourceLedgerVersion": "source-ledger-v1",
+  "annotationPolicyVersion": "legal-annotation/1",
+  "candidates": [
+    {
+      "id": "matter-001-claim-001",
+      "matterID": "matter-001",
+      "claimText": "The court denied the extension request.",
+      "claimType": "factual",
+      "evidence": [
+        {
+          "id": "matter-001-order-001",
+          "source": "Order",
+          "sourceType": "courtRecord",
+          "text": "The court denied the extension request."
+        }
+      ],
+      "challengeTags": ["modality"],
+      "evidenceSourceRecordIDs": {
+        "matter-001-order-001": "source-record-001"
+      }
+    }
+  ]
+}

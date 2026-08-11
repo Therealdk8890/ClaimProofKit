@@ -1,0 +1,222 @@
+{
+  "version": "v0.1",
+  "name": "Evidence-bound legal verification baseline",
+  "claimCases": [
+    {
+      "id": "direct-001", "category": "directSupport",
+      "claimText": "A response must be filed within 14 days after service of the motion.", "claimType": "legalRule",
+      "evidence": [{"id":"rule-5","source":"Local Rule 5","sourceType":"courtRule","text":"A response must be filed within 14 days after service of the motion."}],
+      "expectedStatus": "directlySupported", "rationale": "The court rule states the same deadline."
+    },
+    {
+      "id": "direct-002", "category": "directSupport",
+      "claimText": "The landlord received written notice on January 8.", "claimType": "factual",
+      "evidence": [{"id":"receipt-1","source":"Certified mail receipt","sourceType":"evidence","text":"The landlord received written notice on January 8."}],
+      "expectedStatus": "directlySupported", "rationale": "The receipt directly records delivery and date."
+    },
+    {
+      "id": "direct-003", "category": "directSupport",
+      "claimText": "The tenant paid 500 dollars on March 1.", "claimType": "factual",
+      "evidence": [{"id":"ledger-1","source":"Payment ledger","sourceType":"evidence","text":"The tenant paid 500 dollars on March 1, 2026."}],
+      "expectedStatus": "directlySupported", "rationale": "The ledger directly records the amount and date."
+    },
+    {
+      "id": "direct-004", "category": "directSupport",
+      "claimText": "The hearing is scheduled for June 10.", "claimType": "factual",
+      "evidence": [{"id":"docket-1","source":"Court docket","sourceType":"courtRecord","text":"The hearing is scheduled for June 10."}],
+      "expectedStatus": "directlySupported", "rationale": "The docket directly states the hearing date."
+    },
+    {
+      "id": "direct-005", "category": "directSupport",
+      "claimText": "The contract was terminated on May 4.", "claimType": "factual",
+      "evidence": [{"id":"notice-1","source":"Termination notice","sourceType":"evidence","text":"The contract was terminated on May 4."}],
+      "expectedStatus": "directlySupported", "rationale": "The notice directly states termination occurred."
+    },
+    {
+      "id": "direct-006", "category": "directSupport",
+      "claimText": "The security deposit must be returned within 30 days.", "claimType": "legalRule",
+      "evidence": [{"id":"statute-1","source":"State statute section 10","sourceType":"statute","text":"The security deposit must be returned within 30 days."}],
+      "expectedStatus": "directlySupported", "rationale": "The statute directly states the rule."
+    },
+    {
+      "id": "direct-007", "category": "directSupport",
+      "claimText": "The opening brief may not exceed 15 pages.", "claimType": "legalRule",
+      "evidence": [{"id":"rule-12","source":"Court Rule 12","sourceType":"courtRule","text":"The opening brief may not exceed 15 pages."}],
+      "expectedStatus": "directlySupported", "rationale": "The court rule directly states the page limit."
+    },
+    {
+      "id": "direct-008", "category": "directSupport",
+      "claimText": "The defendant owned a red vehicle.", "claimType": "factual",
+      "evidence": [{"id":"decl-1","source":"Defendant declaration","sourceType":"declaration","text":"The defendant owned a red vehicle."}],
+      "expectedStatus": "directlySupported", "rationale": "The declaration directly states ownership and color."
+    },
+    {
+      "id": "inference-001", "category": "reasonableInference",
+      "claimText": "The tenant received the notice.", "claimType": "factual",
+      "evidence": [{"id":"mail-1","source":"Certified mail receipt","sourceType":"evidence","text":"A certified mail receipt was signed by the tenant for the notice."}],
+      "expectedStatus": "supportedByInference", "rationale": "The signed receipt reasonably supports receipt without stating it verbatim."
+    },
+    {
+      "id": "inference-002", "category": "reasonableInference",
+      "claimText": "The payment was late.", "claimType": "factual",
+      "evidence": [{"id":"ledger-2","source":"Payment ledger","sourceType":"evidence","text":"Payment was due April 1 and was received April 5."}],
+      "expectedStatus": "supportedByInference", "rationale": "Receipt after the due date supports lateness by inference."
+    },
+    {
+      "id": "partial-001", "category": "partialSupport",
+      "claimText": "The defendant received notice on March 3 and failed to respond within 30 days.", "claimType": "factual",
+      "evidence": [{"id":"receipt-2","source":"Delivery receipt","sourceType":"evidence","text":"The defendant received notice on March 3."}],
+      "expectedStatus": "partiallySupported", "rationale": "Receipt is supported but failure to respond is not."
+    },
+    {
+      "id": "partial-002", "category": "partialSupport",
+      "claimText": "The contract was terminated on May 4 and no refund was issued.", "claimType": "factual",
+      "evidence": [{"id":"notice-2","source":"Termination notice","sourceType":"evidence","text":"The contract was terminated on May 4."}],
+      "expectedStatus": "partiallySupported", "rationale": "Termination is supported but the refund assertion is not."
+    },
+    {
+      "id": "partial-003", "category": "partialSupport",
+      "claimText": "A 1200 dollar deposit was paid on January 1 and returned on February 1.", "claimType": "factual",
+      "evidence": [{"id":"receipt-3","source":"Deposit receipt","sourceType":"evidence","text":"A 1200 dollar deposit was paid on January 1."}],
+      "expectedStatus": "partiallySupported", "rationale": "Payment is supported but return is not."
+    },
+    {
+      "id": "partial-004", "category": "partialSupport",
+      "claimText": "The notice was sent and received by the landlord.", "claimType": "factual",
+      "evidence": [{"id":"email-1","source":"Sent email","sourceType":"evidence","text":"The notice was sent to the landlord."}],
+      "expectedStatus": "partiallySupported", "rationale": "Sending is proven but receipt is not."
+    },
+    {
+      "id": "contradiction-001", "category": "contradiction",
+      "claimText": "The court granted the extension request.", "claimType": "factual",
+      "evidence": [{"id":"order-1","source":"Court order","sourceType":"courtRecord","text":"The court denied the extension request."}],
+      "expectedStatus": "contradicted", "rationale": "The order states the opposite disposition."
+    },
+    {
+      "id": "contradiction-002", "category": "contradiction",
+      "claimText": "The response was filed before the deadline.", "claimType": "factual",
+      "evidence": [{"id":"docket-2","source":"Court docket","sourceType":"courtRecord","text":"The response was filed after the deadline."}],
+      "expectedStatus": "contradicted", "rationale": "The docket reverses the timing relationship."
+    },
+    {
+      "id": "contradiction-003", "category": "contradiction",
+      "claimText": "The monthly payment increased.", "claimType": "factual",
+      "evidence": [{"id":"ledger-3","source":"Account ledger","sourceType":"evidence","text":"The monthly payment decreased."}],
+      "expectedStatus": "contradicted", "rationale": "The ledger states the opposite direction."
+    },
+    {
+      "id": "contradiction-004", "category": "contradiction",
+      "claimText": "The tenant did not receive notice.", "claimType": "factual",
+      "evidence": [{"id":"receipt-4","source":"Signed receipt","sourceType":"evidence","text":"The tenant received notice."}],
+      "expectedStatus": "contradicted", "rationale": "The signed receipt contradicts the negated claim."
+    },
+    {
+      "id": "contradiction-005", "category": "contradiction",
+      "claimText": "The defendant paid the invoice.", "claimType": "factual",
+      "evidence": [{"id":"decl-2","source":"Defendant declaration","sourceType":"declaration","text":"The defendant did not pay the invoice."}],
+      "expectedStatus": "contradicted", "rationale": "The declaration expressly denies payment."
+    },
+    {
+      "id": "contradiction-006", "category": "contradiction",
+      "claimText": "The witness was present at the meeting.", "claimType": "factual",
+      "evidence": [{"id":"minutes-1","source":"Meeting minutes","sourceType":"evidence","text":"The witness was absent from the meeting."}],
+      "expectedStatus": "contradicted", "rationale": "The minutes state the opposite attendance status."
+    },
+    {
+      "id": "contradiction-007", "category": "contradiction",
+      "claimText": "The response period was 30 days.", "claimType": "legalRule",
+      "evidence": [{"id":"rule-6","source":"Court Rule 6","sourceType":"courtRule","text":"The response period was 14 days."}],
+      "expectedStatus": "contradicted", "rationale": "The controlling rule states a different deadline."
+    },
+    {
+      "id": "contradiction-008", "category": "contradiction",
+      "claimText": "The contract ended on May 5.", "claimType": "factual",
+      "evidence": [{"id":"notice-3","source":"Termination notice","sourceType":"evidence","text":"The contract ended on May 4."}],
+      "expectedStatus": "contradicted", "rationale": "The notice gives a different termination date."
+    },
+    {
+      "id": "unsupported-001", "category": "unsupported",
+      "claimText": "The plaintiff received 10000 dollars in damages.", "claimType": "factual",
+      "evidence": [{"id":"docket-3","source":"Court docket","sourceType":"courtRecord","text":"The complaint was filed by the plaintiff."}],
+      "expectedStatus": "unsupported", "rationale": "No damages award appears in the supplied evidence."
+    },
+    {
+      "id": "unsupported-002", "category": "unsupported",
+      "claimText": "The tenant owned three dogs.", "claimType": "factual",
+      "evidence": [{"id":"lease-1","source":"Lease","sourceType":"evidence","text":"The lease began on January 1."}],
+      "expectedStatus": "unsupported", "rationale": "The lease passage does not discuss animals."
+    },
+    {
+      "id": "unsupported-003", "category": "unsupported",
+      "claimText": "The defendant admitted fraud during the hearing.", "claimType": "factual",
+      "evidence": [{"id":"minutes-2","source":"Hearing minutes","sourceType":"courtRecord","text":"The defendant attended the hearing."}],
+      "expectedStatus": "unsupported", "rationale": "Attendance does not establish an admission."
+    },
+    {
+      "id": "unsupported-004", "category": "unsupported",
+      "claimText": "The email states that the payment was forgiven.", "claimType": "quotation",
+      "evidence": [{"id":"email-2","source":"Payment email","sourceType":"evidence","text":"The email asks when the payment will arrive."}],
+      "expectedStatus": "unsupported", "rationale": "The cited email does not contain the attributed proposition."
+    },
+    {
+      "id": "citation-001", "category": "citationIntegrity",
+      "claimText": "The contract was terminated on May 4.", "claimType": "factual",
+      "evidence": [{"id":"email-3","source":"Email dated May 4","sourceType":"evidence","text":"The May 4 email discussed possible termination of the contract."}],
+      "expectedStatus": "unsupported", "rationale": "Discussion of possible termination does not prove termination occurred."
+    },
+    {
+      "id": "citation-002", "category": "citationIntegrity",
+      "claimText": "The company admitted liability.", "claimType": "factual",
+      "evidence": [{"id":"letter-1","source":"Company letter","sourceType":"evidence","text":"The company denied liability."}],
+      "expectedStatus": "contradicted", "rationale": "The citation states the opposite of the attributed admission."
+    },
+    {
+      "id": "citation-003", "category": "citationIntegrity",
+      "claimText": "The court approved the settlement.", "claimType": "factual",
+      "evidence": [{"id":"docket-4","source":"Court docket","sourceType":"courtRecord","text":"The court scheduled a hearing about the settlement."}],
+      "expectedStatus": "unsupported", "rationale": "Scheduling a hearing does not establish approval."
+    },
+    {
+      "id": "authority-001", "category": "sourceAuthority",
+      "claimText": "The landlord received notice on January 8.", "claimType": "factual",
+      "evidence": [{"id":"statute-2","source":"Notice statute","sourceType":"statute","text":"A landlord who receives notice must respond promptly."}],
+      "expectedStatus": "unsupported", "rationale": "A statute cannot prove that a case-specific event occurred."
+    },
+    {
+      "id": "authority-002", "category": "sourceAuthority",
+      "claimText": "State law requires notice within 10 days.", "claimType": "legalRule",
+      "evidence": [{"id":"decl-3","source":"Client declaration","sourceType":"declaration","text":"I believe state law requires notice within 10 days."}],
+      "expectedStatus": "unsupported", "rationale": "A declaration is not legal authority for a rule."
+    },
+    {
+      "id": "authority-003", "category": "sourceAuthority",
+      "claimText": "The total damages equal 1500 dollars.", "claimType": "calculation",
+      "evidence": [{"id":"order-2","source":"Scheduling order","sourceType":"courtRecord","text":"The parties must exchange damages calculations."}],
+      "expectedStatus": "unsupported", "rationale": "A court record without inputs cannot prove a calculation."
+    },
+    {
+      "id": "notverifiable-001", "category": "notVerifiable",
+      "claimText": "The attorney recommends filing a response.", "claimType": "recommendation",
+      "evidence": [],
+      "expectedStatus": "notVerifiable", "rationale": "A recommendation is not a factual evidence claim."
+    },
+    {
+      "id": "notverifiable-002", "category": "notVerifiable",
+      "claimText": "This is the best available strategy.", "claimType": "unknown",
+      "evidence": [],
+      "expectedStatus": "notVerifiable", "rationale": "The unknown evaluative claim has no configured proof policy."
+    }
+  ],
+  "extractionCases": [
+    {"id":"extract-001","document":"The landlord received written notice on January 8.","expectedClaims":["The landlord received written notice on January 8."]},
+    {"id":"extract-002","document":"The tenant paid rent and the landlord issued a receipt.","expectedClaims":["The tenant paid rent","the landlord issued a receipt."]},
+    {"id":"extract-003","document":"The defendant received notice on March 3 and failed to respond within 30 days.","expectedClaims":["The defendant received notice on March 3","failed to respond within 30 days."]},
+    {"id":"extract-004","document":"The motion was filed Monday. The court denied it Tuesday.","expectedClaims":["The motion was filed Monday.","The court denied it Tuesday."]},
+    {"id":"extract-005","document":"Was notice delivered? The signed receipt records delivery.","expectedClaims":["The signed receipt records delivery."]},
+    {"id":"extract-006","document":"This document is not legal advice. The response is due on Friday.","expectedClaims":["The response is due on Friday."]},
+    {"id":"extract-007","document":"Background. The lease began on January 1.","expectedClaims":["The lease began on January 1."]},
+    {"id":"extract-008","document":"The payment was due April 1 but the payment arrived April 5.","expectedClaims":["The payment was due April 1","the payment arrived April 5."]},
+    {"id":"extract-009","document":"Plaintiff signed and dated the agreement.","expectedClaims":["Plaintiff signed and dated the agreement."]},
+    {"id":"extract-010","document":"State law requires the deposit to be returned within 30 days.","expectedClaims":["State law requires the deposit to be returned within 30 days."]}
+  ]
+}
