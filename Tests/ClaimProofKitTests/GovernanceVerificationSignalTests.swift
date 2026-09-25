@@ -138,5 +138,10 @@ final class GovernanceVerificationSignalTests: XCTestCase {
         XCTAssertEqual(signal.traceID, "trace-1")
         XCTAssertEqual(signal.runID, "run-1")
         XCTAssertEqual(signal.actionID, "action-1")
+
+        let encoded = try signal.jsonData()
+        let originalObject = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let encodedObject = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        XCTAssertEqual(encodedObject as NSDictionary, originalObject as NSDictionary)
     }
 }
