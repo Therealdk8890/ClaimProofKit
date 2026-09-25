@@ -1,6 +1,6 @@
 // swift-tools-version: 6.0
 // Copyright 2026 Daniel Kissel
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Apache-2.0
 
 import PackageDescription
 
