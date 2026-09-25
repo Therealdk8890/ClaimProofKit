@@ -57,7 +57,7 @@ let package = Package(
         // vector checks against a directory passed as its single argument.
         .executableTarget(name: "ConformanceVectors", dependencies: ["ClaimProofConformance", "ClaimProofKit"]),
         .executableTarget(name: "claimproof", dependencies: ["ClaimProofKit", "ClaimProofProvenance"]),
-        .testTarget(name: "ClaimProofKitTests", dependencies: ["ClaimProofKit"], resources: [.process("../Fixtures")]),
+        .testTarget(name: "ClaimProofKitTests", dependencies: ["ClaimProofKit"], resources: [.process("Fixtures")]),
         .testTarget(name: "ClaimProofProvenanceTests", dependencies: ["ClaimProofProvenance", "ClaimProofKit"]),
         .testTarget(name: "ClaimProofBridgeTests", dependencies: ["ClaimProofBridge", "ClaimProofKit"])
     ],
