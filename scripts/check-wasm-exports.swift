@@ -1,5 +1,5 @@
 // Copyright 2026 Daniel Kissel
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Apache-2.0
 //
 // Verifies that a WebAssembly module's EXPORT SECTION contains every function
 // name passed on the command line. Grepping the raw binary is not sound here:
