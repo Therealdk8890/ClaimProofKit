@@ -1,5 +1,5 @@
 // Copyright 2026 Daniel Kissel
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Apache-2.0
 //
 // Wire formats for the frozen golden vectors under ConformanceHarness/vectors.
 // Shared by the native conformance harness (which also regenerates vectors and
