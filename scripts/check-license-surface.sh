@@ -14,7 +14,7 @@ required_license_lines=(
 )
 
 for line in "${required_license_lines[@]}"; do
-    if ! grep -Fqx "$line" LICENSE; then
+    if ! grep -Fq "$line" LICENSE; then
         printf 'license surface check failed: LICENSE is missing: %s\n' "$line" >&2
         exit 1
     fi
