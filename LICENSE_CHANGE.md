@@ -1,7 +1,6 @@
 # License change
 
-ClaimProofKit was originally released under the Business Source License 1.1
-(BUSL-1.1) with Apache License 2.0 as its scheduled change license.
+ClaimProofKit's license history included a prior source-available license before this repository change.
 
 Effective with this repository change, ClaimProofKit is released under the
 Apache License, Version 2.0 (Apache-2.0). The Apache-2.0 license in LICENSE
@@ -17,5 +16,4 @@ license. Hosted governance, enterprise operations, managed services, policy
 control planes, and related service implementations may remain proprietary
 without restricting use of the open-source ClaimProofKit library.
 
-This file documents the project-history transition; it does not replace the
-LICENSE file.
+This file documents the project-history transition without reproducing the prior license's name or terms; it does not replace the LICENSE file.
