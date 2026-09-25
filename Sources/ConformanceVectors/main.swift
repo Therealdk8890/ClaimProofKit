@@ -1,5 +1,5 @@
 // Copyright 2026 Daniel Kissel
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Apache-2.0
 //
 // Portable runner for the Claim Proof Specification v1 vector checks. Built as
 // a wasm32-wasi command module and executed under a wasm runtime in CI, it
