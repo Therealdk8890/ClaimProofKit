@@ -38,8 +38,14 @@ public struct GovernanceVerificationSignal: Codable, Equatable, Sendable {
         actionID: String? = nil,
         version: Int = 1
     ) {
+        precondition(version >= 1, "version must be positive")
         precondition(!reportFingerprint.isEmpty, "reportFingerprint must be non-empty")
         precondition(!policyFingerprint.isEmpty, "policyFingerprint must be non-empty")
+        precondition(blockingClaimIDs.allSatisfy { !$0.isEmpty }, "blockingClaimIDs entries must be non-empty")
+        precondition(reviewClaimIDs.allSatisfy { !$0.isEmpty }, "reviewClaimIDs entries must be non-empty")
+        precondition(traceID == nil || !traceID!.isEmpty, "traceID must be non-empty when present")
+        precondition(runID == nil || !runID!.isEmpty, "runID must be non-empty when present")
+        precondition(actionID == nil || !actionID!.isEmpty, "actionID must be non-empty when present")
         precondition(supportedClaimCount >= 0, "supportedClaimCount must be non-negative")
         precondition(totalClaimCount >= 0, "totalClaimCount must be non-negative")
         precondition(supportedClaimCount <= totalClaimCount, "supportedClaimCount cannot exceed totalClaimCount")
