@@ -1,5 +1,5 @@
 // Copyright 2026 Daniel Kissel
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Apache-2.0
 //
 // Claim Proof Specification v1 vector checks — the portable core of the
 // conformance harness. Everything here runs identically on native platforms
