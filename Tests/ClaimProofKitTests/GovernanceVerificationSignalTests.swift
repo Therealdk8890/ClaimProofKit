@@ -84,6 +84,44 @@ final class GovernanceVerificationSignalTests: XCTestCase {
         XCTAssertEqual(decoded, signal)
     }
 
+    func testDecoderRejectsInvalidTransportValues() throws {
+        let cases: [(String, String)] = [
+            ("version", "{\"version\":0}"),
+            ("reportFingerprint", "{\"reportFingerprint\":\"\"}"),
+            ("policyFingerprint", "{\"policyFingerprint\":\"\"}"),
+            ("supportedClaimCount", "{\"supportedClaimCount\":2,\"totalClaimCount\":1}"),
+            ("blockingClaimIDs", "{\"blockingClaimIDs\":[\"\"]}"),
+            ("reviewClaimIDs", "{\"reviewClaimIDs\":[\"\"]}"),
+            ("traceID", "{\"traceID\":\"\"}"),
+            ("runID", "{\"runID\":\"\"}"),
+            ("actionID", "{\"actionID\":\"\"}")
+        ]
+
+        let base = """
+        {
+          "version": 1,
+          "disposition": "allow",
+          "reportFingerprint": "report-123",
+          "policyFingerprint": "policy-123",
+          "blockingClaimIDs": [],
+          "reviewClaimIDs": [],
+          "supportedClaimCount": 0,
+          "totalClaimCount": 1,
+          "traceID": "trace-1",
+          "runID": "run-1",
+          "actionID": "action-1"
+        }
+        """
+
+        for (field, fragment) in cases {
+            var object = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(base.utf8)) as? [String: Any])
+            let patch = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(fragment.utf8)) as? [String: Any])
+            object.merge(patch) { _, new in new }
+            let data = try JSONSerialization.data(withJSONObject: object)
+            XCTAssertThrowsError(try JSONDecoder().decode(GovernanceVerificationSignal.self, from: data), "Expected rejection for \(field)")
+        }
+    }
+
     func testSharedV1FixtureMatchesWireContract() throws {
         let url = try XCTUnwrap(Bundle.module.url(forResource: "governance-verification-signal-v1", withExtension: "json"))
         let data = try Data(contentsOf: url)
