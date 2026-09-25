@@ -1,3 +1,6 @@
+// Copyright 2026 Daniel Kissel
+// SPDX-License-Identifier: BUSL-1.1
+
 import XCTest
 @testable import ClaimProofKit
 
