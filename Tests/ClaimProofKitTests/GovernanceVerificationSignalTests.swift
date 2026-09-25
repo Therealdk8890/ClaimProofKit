@@ -83,8 +83,6 @@ final class GovernanceVerificationSignalTests: XCTestCase {
         let decoded = try JSONDecoder().decode(GovernanceVerificationSignal.self, from: data)
         XCTAssertEqual(decoded, signal)
     }
-}
-
 
     func testSharedV1FixtureMatchesWireContract() throws {
         let url = try XCTUnwrap(Bundle.module.url(forResource: "governance-verification-signal-v1", withExtension: "json"))
