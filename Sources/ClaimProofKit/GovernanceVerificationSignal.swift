@@ -92,6 +92,68 @@ public struct GovernanceVerificationSignal: Codable, Equatable, Sendable {
         )
     }
 
+    private enum CodingKeys: String, CodingKey {
+        case version
+        case disposition
+        case reportFingerprint
+        case policyFingerprint
+        case blockingClaimIDs
+        case reviewClaimIDs
+        case supportedClaimCount
+        case totalClaimCount
+        case traceID
+        case runID
+        case actionID
+    }
+
+    /// Decode untrusted transport data through the same contract validation as
+    /// programmatic construction. This prevents Codable from bypassing the
+    /// invariants enforced by the public initializer.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let version = try container.decode(Int.self, forKey: .version)
+        let disposition = try container.decode(Disposition.self, forKey: .disposition)
+        let reportFingerprint = try container.decode(String.self, forKey: .reportFingerprint)
+        let policyFingerprint = try container.decode(String.self, forKey: .policyFingerprint)
+        let blockingClaimIDs = try container.decode([String].self, forKey: .blockingClaimIDs)
+        let reviewClaimIDs = try container.decode([String].self, forKey: .reviewClaimIDs)
+        let supportedClaimCount = try container.decode(Int.self, forKey: .supportedClaimCount)
+        let totalClaimCount = try container.decode(Int.self, forKey: .totalClaimCount)
+        let traceID = try container.decodeIfPresent(String.self, forKey: .traceID)
+        let runID = try container.decodeIfPresent(String.self, forKey: .runID)
+        let actionID = try container.decodeIfPresent(String.self, forKey: .actionID)
+
+        func invalid(_ field: String, _ reason: String) -> DecodingError {
+            DecodingError.dataCorruptedError(forKey: CodingKeys(stringValue: field)!, in: container, debugDescription: reason)
+        }
+
+        guard version >= 1 else { throw invalid("version", "version must be positive") }
+        guard !reportFingerprint.isEmpty else { throw invalid("reportFingerprint", "must be non-empty") }
+        guard !policyFingerprint.isEmpty else { throw invalid("policyFingerprint", "must be non-empty") }
+        guard supportedClaimCount >= 0 else { throw invalid("supportedClaimCount", "must be non-negative") }
+        guard totalClaimCount >= 0 else { throw invalid("totalClaimCount", "must be non-negative") }
+        guard supportedClaimCount <= totalClaimCount else { throw invalid("supportedClaimCount", "cannot exceed totalClaimCount") }
+        guard blockingClaimIDs.allSatisfy({ !$0.isEmpty }) else { throw invalid("blockingClaimIDs", "entries must be non-empty") }
+        guard reviewClaimIDs.allSatisfy({ !$0.isEmpty }) else { throw invalid("reviewClaimIDs", "entries must be non-empty") }
+        guard traceID == nil || traceID!.isEmpty == false else { throw invalid("traceID", "must be non-empty when present") }
+        guard runID == nil || runID!.isEmpty == false else { throw invalid("runID", "must be non-empty when present") }
+        guard actionID == nil || actionID!.isEmpty == false else { throw invalid("actionID", "must be non-empty when present") }
+
+        self.init(
+            disposition: disposition,
+            reportFingerprint: reportFingerprint,
+            policyFingerprint: policyFingerprint,
+            blockingClaimIDs: blockingClaimIDs,
+            reviewClaimIDs: reviewClaimIDs,
+            supportedClaimCount: supportedClaimCount,
+            totalClaimCount: totalClaimCount,
+            traceID: traceID,
+            runID: runID,
+            actionID: actionID,
+            version: version
+        )
+    }
+
     /// A compact JSON representation suitable for a message bus, webhook, or
     /// controller event attribute. ClaimProofKit remains independent of the
     /// controller that consumes it.
