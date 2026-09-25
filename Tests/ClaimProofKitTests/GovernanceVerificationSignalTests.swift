@@ -81,3 +81,23 @@ final class GovernanceVerificationSignalTests: XCTestCase {
         XCTAssertEqual(decoded, signal)
     }
 }
+
+
+    func testSharedV1FixtureMatchesWireContract() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "governance-verification-signal-v1", withExtension: "json"))
+        let data = try Data(contentsOf: url)
+        let signal = try JSONDecoder().decode(GovernanceVerificationSignal.self, from: data)
+
+        XCTAssertEqual(signal.version, 1)
+        XCTAssertEqual(signal.disposition, .block)
+        XCTAssertEqual(signal.reportFingerprint, "report-123")
+        XCTAssertEqual(signal.policyFingerprint, "policy-123")
+        XCTAssertEqual(signal.blockingClaimIDs, ["claim-unsafe"])
+        XCTAssertEqual(signal.reviewClaimIDs, [])
+        XCTAssertEqual(signal.supportedClaimCount, 0)
+        XCTAssertEqual(signal.totalClaimCount, 1)
+        XCTAssertEqual(signal.traceID, "trace-1")
+        XCTAssertEqual(signal.runID, "run-1")
+        XCTAssertEqual(signal.actionID, "action-1")
+    }
+}
