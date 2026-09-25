@@ -1,6 +1,6 @@
 // swift-tools-version: 6.0
 // Copyright 2026 Daniel Kissel
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Apache-2.0
 
 import PackageDescription
 
@@ -57,7 +57,7 @@ let package = Package(
         // vector checks against a directory passed as its single argument.
         .executableTarget(name: "ConformanceVectors", dependencies: ["ClaimProofConformance", "ClaimProofKit"]),
         .executableTarget(name: "claimproof", dependencies: ["ClaimProofKit", "ClaimProofProvenance"]),
-        .testTarget(name: "ClaimProofKitTests", dependencies: ["ClaimProofKit"]),
+        .testTarget(name: "ClaimProofKitTests", dependencies: ["ClaimProofKit"], resources: [.process("Fixtures")]),
         .testTarget(name: "ClaimProofProvenanceTests", dependencies: ["ClaimProofProvenance", "ClaimProofKit"]),
         .testTarget(name: "ClaimProofBridgeTests", dependencies: ["ClaimProofBridge", "ClaimProofKit"])
     ],

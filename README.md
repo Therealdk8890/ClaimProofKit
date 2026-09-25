@@ -2,7 +2,7 @@
 
 ClaimProofKit is a local-first Swift library that checks whether material claims in a generated document are supported by supplied evidence passages.
 
-ClaimProofKit is source-available under the [Business Source License 1.1](LICENSE). Non-production evaluation, development, testing, and personal study are permitted. Production use requires a separate commercial license until the Change Date, when that version converts to Apache 2.0. See [Commercial licensing](COMMERCIAL_LICENSING.md) and the [product boundary](PRODUCT_BOUNDARY.md). Hosted, enterprise, governance, and managed-service implementations are developed separately in ClaimProofCloud.
+ClaimProofKit is open source under the [Apache License 2.0](LICENSE). It is designed as a local-first verification primitive for AI governance: deterministic, inspectable, provider-neutral, and usable as a standalone Swift package. Commercial hosted governance, enterprise operations, managed services, and control-plane capabilities remain outside this library. See [Commercial licensing](COMMERCIAL_LICENSING.md) and the [product boundary](PRODUCT_BOUNDARY.md).
 
 This first vertical slice deliberately uses a deterministic lexical verifier. It is inspectable, runs without an API key, and establishes the report contract that future semantic and domain-specific verifiers can implement. It is not yet suitable as the sole accuracy gate for legal, medical, or financial content.
 

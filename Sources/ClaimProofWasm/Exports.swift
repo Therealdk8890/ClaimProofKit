@@ -1,5 +1,5 @@
 // Copyright 2026 Daniel Kissel
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: Apache-2.0
 
 // A C-ABI WebAssembly reactor wrapper over ClaimProofBridge, so a browser (an
 // Office add-in taskpane) can drive verification with no companion process. The

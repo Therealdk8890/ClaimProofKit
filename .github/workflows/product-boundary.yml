@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check BUSL-1.1 license surface
+      - name: Check Apache-2.0 license surface
         run: bash scripts/check-license-surface.sh
       - name: Check ClaimProofCloud boundary
         run: bash scripts/check-product-boundary.sh

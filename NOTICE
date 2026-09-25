@@ -1,9 +1,9 @@
 ClaimProofKit
 Copyright 2026 Daniel Kissel
 
-ClaimProofKit is source-available under the Business Source License 1.1.
-See LICENSE for the production-use terms, Change Date, and Change License.
+ClaimProofKit is distributed under the Apache License, Version 2.0.
+See the LICENSE file for the complete license text.
 
-"Business Source License" is a trademark of MariaDB Corporation Ab.
-The ClaimProofKit name and logos are not granted for use except as required for
-reasonable attribution and description of the Licensed Work's origin.
+This project may depend on third-party packages that carry their own
+copyright notices and license terms. Those dependencies remain governed
+by their respective licenses.

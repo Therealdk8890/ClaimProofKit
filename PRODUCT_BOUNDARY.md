@@ -1,6 +1,6 @@
 # Product boundary
 
-ClaimProofKit is the source-available verification foundation. It is licensed under BUSL-1.1 for non-production use and under separate commercial terms for production use until the applicable Change Date. It may contain:
+ClaimProofKit is the open-source verification foundation, licensed under Apache-2.0. Commercial value is kept at the hosted governance and operational layers rather than behind restrictions on this verification library. It may contain:
 
 - Claim and evidence schemas
 - Extraction and verification interfaces
