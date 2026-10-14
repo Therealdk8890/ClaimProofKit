@@ -91,11 +91,12 @@ jobs:
           --product ConformanceVectors
       - name: Run conformance vectors under WasmKit
         run: |
-          # swift.org toolchains ship wasmkit since 6.2; fall back to the
-          # pinned static-musl release binary if this container ever drops it.
+          # The pinned swift:6.3.2 container is expected to include wasmkit.
+          # Fail closed if it does not; do not download and execute an unverified
+          # release archive from a mutable tag during CI.
           if ! command -v wasmkit >/dev/null 2>&1; then
-            curl -fsSL https://github.com/swiftwasm/WasmKit/releases/download/0.3.1/wasmkit-x86_64-swift-linux-musl.tar.gz | tar -xz -C "${RUNNER_TEMP:-/tmp}"
-            export PATH="${RUNNER_TEMP:-/tmp}/wasmkit-x86_64-swift-linux-musl:$PATH"
+            echo "::error::wasmkit is missing from the pinned Swift container; update the container/toolchain deliberately instead of downloading an unverified binary."
+            exit 1
           fi
           wasmkit --version
           BIN="$(swift build -c release --swift-sdk ${{ steps.swiftwasm.outputs.swift-sdk-id }} --show-bin-path)"
