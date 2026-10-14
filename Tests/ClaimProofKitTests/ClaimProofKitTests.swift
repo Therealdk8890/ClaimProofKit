@@ -70,7 +70,6 @@ struct ClaimProofKitTests {
         let result = ClaimVerifier().verify(claim: claim, against: evidence)
         #expect(result.status == .notVerifiable)
     }
-}
 
     @Test("An empty document is not safe to publish")
     func emptyDocumentBlocksPublication() {
@@ -87,3 +86,5 @@ struct ClaimProofKitTests {
         #expect(report.isSafeToPublish == false)
         #expect(report.supportRate == 0)
     }
+
+}
