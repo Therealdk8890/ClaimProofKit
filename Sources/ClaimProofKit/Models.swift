@@ -142,11 +142,12 @@ public struct ProofReport: Codable, Sendable {
     }
 
     public var isSafeToPublish: Bool {
-        verdicts.allSatisfy { $0.status == .directlySupported || $0.status == .supportedByInference }
+        !verdicts.isEmpty &&
+            verdicts.allSatisfy { $0.status == .directlySupported || $0.status == .supportedByInference }
     }
 
     public var supportRate: Double {
-        guard !verdicts.isEmpty else { return 1 }
+        guard !verdicts.isEmpty else { return 0 }
         let supported = verdicts.filter {
             $0.status == .directlySupported || $0.status == .supportedByInference
         }.count
