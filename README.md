@@ -92,3 +92,7 @@ Material edits change a claim fingerprint, invalidating any proof attached to th
 ## Next accuracy milestone
 
 Replace the lexical verifier with a pluggable verification pipeline combining deterministic checks, retrieval, semantic entailment, citations, and calibrated human review. Every verifier must be measured against a versioned legal claim/evidence corpus before it can participate in the publish gate.
+
+---
+
+Copyright 2026 Daniel Paul Kissel
