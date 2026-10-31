@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2026 Daniel Kissel
+# Copyright 2026 Daniel Paul Kissel
 # SPDX-License-Identifier: Apache-2.0
 
 set -euo pipefail
