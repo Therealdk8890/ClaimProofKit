@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2026 Daniel Kissel
+# Copyright 2026 Daniel Paul Kissel
 # SPDX-License-Identifier: Apache-2.0
 
 set -euo pipefail
@@ -10,7 +10,7 @@ cd "$repo_root"
 required_license_lines=(
     'Apache License'
     'Version 2.0, January 2004'
-    'Copyright 2026 Daniel Kissel'
+    'Copyright 2026 Daniel Paul Kissel'
 )
 
 for line in "${required_license_lines[@]}"; do
