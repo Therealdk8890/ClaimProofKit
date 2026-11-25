@@ -34,7 +34,7 @@ let package = Package(
         .executable(name: "claimproof", targets: ["claimproof"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-crypto.git", from: "3.0.0")
+        .package(url: "https://github.com/apple/swift-crypto.git", from: "5.1.2")
     ],
     targets: [
         .target(name: "ClaimProofKit", dependencies: [cryptoOnNonDarwin]),
