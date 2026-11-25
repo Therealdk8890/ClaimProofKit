@@ -1,5 +1,9 @@
 # ClaimProofKit
 
+[![CI](https://github.com/Therealdk8890/ClaimProofKit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Therealdk8890/ClaimProofKit/actions/workflows/ci.yml)
+[![Product boundary](https://github.com/Therealdk8890/ClaimProofKit/actions/workflows/product-boundary.yml/badge.svg?branch=main)](https://github.com/Therealdk8890/ClaimProofKit/actions/workflows/product-boundary.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
 ClaimProofKit is a local-first Swift library that checks whether material claims in a generated document are supported by supplied evidence passages.
 
 ClaimProofKit is open source under the [Apache License 2.0](LICENSE). It is designed as a local-first verification primitive for AI governance: deterministic, inspectable, provider-neutral, and usable as a standalone Swift package. Commercial hosted governance, enterprise operations, managed services, and control-plane capabilities remain outside this library. See [Commercial licensing](COMMERCIAL_LICENSING.md) and the [product boundary](PRODUCT_BOUNDARY.md).
